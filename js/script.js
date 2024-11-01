@@ -2,10 +2,22 @@
 
 class Task {
     constructor(title, description, assigned, dateCreated, status) {
+        // Title of the task
         this.title = title;
+
+        // Description of the task / Can be changed to array for checkbox
         this.description = description;
+
+        // User / users assigned to the task
         this.assigned = assigned;
+
+        // When the task was created 
         this.dateCreated = dateCreated;
+
+        // Status (Number)
+        // 0 = Starting
+        // 1 = In-Progress
+        // 2 = Completed 
         this.status = status;
     }
 
