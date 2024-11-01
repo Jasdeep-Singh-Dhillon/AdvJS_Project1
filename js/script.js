@@ -9,29 +9,34 @@ class Task {
         this.status = status;
     }
 
-    setTitle = (title) => {
-        this.title = title;
-    }
+    // setTitle = (title) => {
+    //     this.title = title;
+    // }
 
-    setDescription = (desc) => {
-        this.description = desc;
-    }
+    // setDescription = (desc) => {
+    //     this.description = desc;
+    // }
 
-    setStatus = (status) => {
-        this.status = status;
-    }
+    // setStatus = (status) => {
+    //     this.status = status;
+    // }
 
-    setAssigned = (users) => {
-        this.assigned = users;
-    }
+    // setAssigned = (user) => {
+    //     this.assigned = user;
+    // }
 }
 
-const task = new Task("Test1", "Description of Test1", "Harjeet", new Date(), "1");
+/*
+tasks:"[{"title":"Test1","description":"Description of Test1","assigned":"Harjeet","dateCreated":"2024-11-01T03:36:04.881Z","status":"1"},{"title":"Test2","description":"Changed description very helpful","assigned":"Jasdeep","dateCreated":"2024-11-01T03:36:04.881Z","status":"0"}]"
+*/
 
-task.setTitle("ChatGPT");
+
+const task = new Task("Test1", "Description of Test1", "Harjeet", new Date(), 1);
+
+// task.setTitle("ChatGPT");
 
 console.log(task);
-// const task2 = new Task("Test2", "Changed description very helpful", "Jasdeep", new Date(), "0");
+// const task2 = new Task("Test2", "Changed description very helpful", "Jasdeep", new Date(), 0);
 
 
 // const tasks = [];
@@ -41,5 +46,9 @@ console.log(task);
 
 // localStorage["tasks"] = JSON.stringify(tasks);
 
-// const tasks = JSON.parse(localStorage["tasks"]);
-// console.log(tasks);
+
+
+const tasks = JSON.parse(localStorage["tasks"]);
+tasks[0].title = "Changed to check if this works";
+
+console.log(tasks);
