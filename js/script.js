@@ -1,46 +1,95 @@
 "use strict";
 
-let tasks = [];
-
-if(localStorage?.tasks) {
-    tasks = JSON.parse(localStorage[tasks]);
-}
-
 class Task {
-    constructor(title, description, assigned, dateCreated, status) {
+
+    constructor(title, desc, assigned, dateCreated, status) {
+        if(!title) {
+            title = "No title";
+        }
         // Title of the task
         this.title = title;
 
+        if(!desc) {
+            desc = "No Description";
+        }
         // Description of the task / Can be changed to array for checkbox
-        this.description = description;
+        this.desc = desc;
 
+        if(!assigned) {
+            assigned = "Not Assigned";
+        }
         // User assigned to the task
         this.assigned = assigned;
 
+        if(!dateCreated || new Date(dateCreated) == "Invalid Date") {
+            dateCreated = new Date();
+        }
         // When the task was created 
         this.dateCreated = dateCreated;
-
+        if(!status) {
+            status = 0;
+        }
+        if(isNaN(status)) {
+            status = parseInt(status);
+            if(isNaN(status)) {
+                status = 0;
+            }
+        }
         // Status (Number)
         // 0 = Incomplete
         // 1 = Complete
         this.status = status;
     }
 
+    setTitle = title => {
+        this.title = title;
+    }
+
+    getTitle = () => {
+        return this.title;
+    }
+
+    setDesc = desc => {
+        this.description = desc
+    }
+
+    getDesc = () => {
+        return this.description;
+    }
+
+    setAssigned = assignee => {
+        this.assigned = assignee;
+    }
+
+    getAssigned = () => {
+        return this.assigned;
+    }
+
+    setStatus = status => {
+        this.status = status;
+    }
+
+    getStatus = () => {
+        return this.status;
+    }
+
 }
 
-const task = new Task("Test1", "Description of Test1", "Harjeet", new Date(), 1);
+let tasks = [];
 
-// task.setTitle("ChatGPT");
+if (localStorage?.tasks) {
+    try {
+        tasks = localStorage.tasks;
+        tasks = JSON.parse(tasks);
 
-console.log(task);
-// const task2 = new Task("Test2", "Changed description very helpful", "Jasdeep", new Date(), 0);
-
-
-// const tasks = [];
-// tasks.push(task);
-// tasks.push(task2);
-// console.log(tasks);
-
-// localStorage["tasks"] = JSON.stringify(tasks);
+        for(let task in tasks) {
+            task[i] = new Task(task[i].title, task.description, task.assigned, task.dateCreated, task.status);
+            console.log(task.getTitle());
+        }
+    }
+    catch (err) {
+        console.log("Error: ", err);
+    }
+}
 
 console.log(tasks);
