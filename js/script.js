@@ -133,13 +133,13 @@ class Task {
 
 const addTask = () => {
     const title = prompt("Enter Task Title:");
-    if(!title) return;
-     const desc = prompt("Enter Task Description:");
-     const assigned = prompt("Enter Task Assignee:");
-     const task = new Task(getUID(), title, desc, assigned, new Date(),0);
+    if (!title) return;
+    const desc = prompt("Enter Task Description:");
+    const assigned = prompt("Enter Task Assignee:");
+    const task = new Task(getUID(), title, desc, assigned, new Date(), 0);
     //code to push tasks 
     tasks.push(task);
-   //code to update  tasks
+    //code to update  tasks
     updateLocalTasks(tasks);
     document.querySelector("main").innerHTML += task.toHTML();
     console.log("clicked");
@@ -169,10 +169,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    for(let task of tasks) {
+    for (let task of tasks) {
         let status = document.querySelector(`#progress${task.getID()}`);
         status.addEventListener('change', () => {
-            if(status.checked) {
+            if (status.checked) {
                 task.setStatus(1);
                 document.querySelector(`#${task.getID()} .title`).classList.add('complete');
                 document.querySelector(`#${task.getID()} .desc`).classList.add('complete');
@@ -186,20 +186,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let edit = document.querySelector(`#${task.getID()} .edit`);
         edit.addEventListener('click', () => {
-            const newTitle = prompt("Edit Task title",task.getTitle());
-            if(newTitle) task.setTitle(newTitle);
+            console.log('Clicked Edit');
+            const newTitle = prompt("Edit Task title", task.getTitle());
+            if (newTitle) task.setTitle(newTitle);
 
-            const newDesc = prompt("Edit Task Description",task.getDesc());
-            if(newDesc) task.setDesc(newDesc);
+            const newDesc = prompt("Edit Task Description", task.getDesc());
+            if (newDesc) task.setDesc(newDesc);
 
-              const newAssigned = prompt("Edit Task Assignee",task.getAssigned());
-            if(newAssigned) task.setAssigned(newAssigned);
+            const newAssigned = prompt("Edit Task Assignee", task.getAssigned());
+            if (newAssigned) task.setAssigned(newAssigned);
 
             document.querySelector(`#${task.getID()} .title label`).textContent = task.getTitle();
             document.querySelector(`#${task.getID()} .desc `).textContent = task.getDesc();
-            document.querySelector(`#${task.getID()} .assigned .person}`).textContent = task.getAssigned();
-             updateLocalTasks(tasks);
-            // console.log('Clicked Edit');
+            document.querySelector(`#${task.getID()} .person`).textContent = task.getAssigned();
+            updateLocalTasks(tasks);
         });
 
         let trash = document.querySelector(`#${task.getID()} .delete`);
@@ -207,14 +207,14 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log('Clicked Delete');
             document.querySelector(`#${task.getID()}`).remove();
             let index = tasks.findIndex(element => element.getID() === task.getID());
-            if(index >= 0) {
+            if (index >= 0) {
                 tasks.splice(index, 1);
                 updateLocalTasks(tasks);
             }
         });
     }
-    
-    
+
+
 
 
 
@@ -223,10 +223,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // To populate local storage with tasks
 const generateTasks = () => {
-    for(let i = 0; i < 10; i++) {
-        let task = new Task(getUID(),`Title ${i+1}`, `Description of task ${i+1}`, `Person ${i+1}`, new Date(), Math.round(Math.random()));
+    for (let i = 0; i < 10; i++) {
+        let task = new Task(getUID(), `Title ${i + 1}`, `Description of task ${i + 1}`, `Person ${i + 1}`, new Date(), Math.round(Math.random()));
         tasks.push(task);
     }
     updateLocalTasks(tasks);
 }
- //generateTasks();
+//generateTasks();
