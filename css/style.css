@@ -10,6 +10,7 @@
 
 header {
   padding: 1rem;
+  justify-content: space-between;
 }
 
 header h1 {
@@ -23,6 +24,19 @@ header h1 {
 
 header img {
   height: 50px;
+}
+
+#add-task {
+    border: none;
+    background-color: rgb(208, 247, 193);
+    border-radius: 1rem;
+    padding: 1rem;
+    font-weight: bold;
+}
+
+#add-task::before {
+    content: url(../imgs/plus.png);
+    margin-right: .5rem;
 }
 
 main {

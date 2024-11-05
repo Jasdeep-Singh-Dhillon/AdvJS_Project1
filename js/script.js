@@ -147,5 +147,5 @@ if (localStorage?.tasks) {
 // }
 
 const addTask = () => {
-
+    console.log("clicked");
 }

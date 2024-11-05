@@ -12,3 +12,5 @@
 
 
 https://stackoverflow.com/questions/3231459/how-can-i-create-unique-ids-with-javascript
+
+<a href="https://www.flaticon.com/free-icons/plus" title="plus icons">Plus icons created by Freepik - Flaticon</a>
