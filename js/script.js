@@ -41,7 +41,7 @@ class Task {
         this.status = status;
     }
 
-    setTitle = title => {
+    setTitle = (title) => {
         this.title = title;
     }
 
@@ -49,7 +49,7 @@ class Task {
         return this.title;
     }
 
-    setDesc = desc => {
+    setDesc = (desc) => {
         this.description = desc
     }
 
@@ -122,20 +122,24 @@ if (localStorage?.tasks) {
 
         for (let task of tasks) {
             task = new Task(task.title, task.desc, task.assigned, task.dateCreated, task.status);
-            console.log(task);
+            if(task.getTitle() === "Title 7") {
+                console.log("Here");
+                task.setDesc("Lorem ipsum dolor sit amet diam dignissim nulla tempor dolor tempor est id eum qui ut ea. Aliquyam lorem amet gubergren velit dolor zzril eu quod et clita vel sed gubergren commodo amet duis. Invidunt ut ea eirmod sed magna et gubergren. Facilisi amet dolor luptatum commodo quis wisi duo sed labore sea nostrud sadipscing. Sit ex labore nonumy.");
+            }
             document.querySelector('main').innerHTML += task.toHTML();
+
         }
     }
     catch (err) {
         console.log("Error: ", err);
     }
 }
-// let tasks = [];
 
 // for(let i = 0; i < 10; i++) {
 //     let task = new Task(`Title ${i+1}`, `Description of task ${i+1}`, `Person ${i+1}`, new Date(), Math.round(Math.random()));
 //     tasks.push(task);
-
 // }
 
-// localStorage.tasks = JSON.stringify(tasks);
+const addTask = () => {
+
+}
