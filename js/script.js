@@ -132,6 +132,16 @@ class Task {
 }
 
 const addTask = () => {
+    const title = prompt("Enter Task Title:");
+    if(!title) return;
+     const desc = prompt("Enter Task Description:");
+     const assigned = prompt("Enter Task Assignee:");
+     const task = new Task(getUID(), title, desc, assigned, new Date(),0);
+    //code to push tasks 
+    tasks.push(task);
+   //code to update  tasks
+    updateLocalTasks(tasks);
+    document.querySelector("main").innerHTMl += task.toHTMl();
     console.log("clicked");
 }
 
@@ -176,6 +186,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let edit = document.querySelector(`#${task.getID()} .edit`);
         edit.addEventListener('click', () => {
+            const newTitle = prompt("Edit Task title",task.getTitle());
+            if(newTitle) task.setTitle(newTitle);
+
+            const newDesc = prompt("Edit Task Description",task.getDesc());
+            if(newDesc) task.setDesc(newDesc);
+
+              const newAssigned = prompt("Edit Task Assignee",task.getAssigned());
+            if(newAssigned) task.setAssigned(newAssigned);
+
+            document.querySelector(`#${task.getID() .title label}`).textContent = task.getTitle();
+            document.querySelector(`#${task.getID() .desc }`).textContent = task.getDesc();
+            document.querySelector(`#${task.getID() .assigned .person}`).textContent = task.getAssigned();
+             updateLocalTasks(tasks);
             console.log('Clicked Edit');
         });
 
@@ -206,4 +229,4 @@ const generateTasks = () => {
     }
     updateLocalTasks(tasks);
 }
- generateTasks();
+ //generateTasks();
