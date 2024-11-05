@@ -98,12 +98,12 @@ class Task {
             checked = "checked";
             completed = "complete";
         }
-        const taskHTML = `<div class="task ${completed}" id="${this.id}">
-      <div class="title flex flex-align">
+        const taskHTML = `<div class="task" id="${this.id}">
+      <div class="title flex flex-align ${completed}">
         <input type="checkbox" name="progress" id="progress${this.id}" ${checked}>
         <label for="progress${this.id}">${this.title}</label>
       </div>
-      <div class="desc">
+      <div class="desc ${completed}">
         ${this.desc}
       </div>
 
@@ -164,10 +164,12 @@ document.addEventListener("DOMContentLoaded", () => {
         status.addEventListener('change', () => {
             if(status.checked) {
                 task.setStatus(1);
-                document.querySelector(`#${task.getID()}`).classList.add('complete');
+                document.querySelector(`#${task.getID()} .title`).classList.add('complete');
+                document.querySelector(`#${task.getID()} .desc`).classList.add('complete');
             } else {
                 task.setStatus(0);
-                document.querySelector(`#${task.getID()}`).classList.remove('complete');
+                document.querySelector(`#${task.getID()} .title`).classList.remove('complete');
+                document.querySelector(`#${task.getID()} .desc`).classList.remove('complete');
             }
             updateLocalTasks(tasks);
         });
@@ -197,8 +199,12 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // To populate local storage with tasks
-// for(let i = 0; i < 10; i++) {
-//     let task = new Task(getUID(),`Title ${i+1}`, `Description of task ${i+1}`, `Person ${i+1}`, new Date(), Math.round(Math.random()));
-//     tasks.push(task);
-// }
-// localStorage.tasks = JSON.stringify(tasks);
+const generateTasks = () => {
+    for(let i = 0; i < 10; i++) {
+        let task = new Task(getUID(),`Title ${i+1}`, `Description of task ${i+1}`, `Person ${i+1}`, new Date(), Math.round(Math.random()));
+        tasks.push(task);
+    }
+    updateLocalTasks(tasks);
+}
+
+// generateTasks();
