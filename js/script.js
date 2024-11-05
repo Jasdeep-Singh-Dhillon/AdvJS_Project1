@@ -141,7 +141,7 @@ const addTask = () => {
     tasks.push(task);
    //code to update  tasks
     updateLocalTasks(tasks);
-    document.querySelector("main").innerHTMl += task.toHTMl();
+    document.querySelector("main").innerHTMl += task.toHTML();
     console.log("clicked");
 }
 
@@ -195,9 +195,9 @@ document.addEventListener("DOMContentLoaded", () => {
               const newAssigned = prompt("Edit Task Assignee",task.getAssigned());
             if(newAssigned) task.setAssigned(newAssigned);
 
-            document.querySelector(`#${task.getID() .title label}`).textContent = task.getTitle();
-            document.querySelector(`#${task.getID() .desc }`).textContent = task.getDesc();
-            document.querySelector(`#${task.getID() .assigned .person}`).textContent = task.getAssigned();
+            document.querySelector(`#${task.getID()} .title label`).textContent = task.getTitle();
+            document.querySelector(`#${task.getID()} .desc `).textContent = task.getDesc();
+            document.querySelector(`#${task.getID()} .assigned .person}`).textContent = task.getAssigned();
              updateLocalTasks(tasks);
             console.log('Clicked Edit');
         });
