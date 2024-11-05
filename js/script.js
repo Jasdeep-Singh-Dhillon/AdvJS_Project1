@@ -137,6 +137,10 @@ const addTask = () => {
 
 let tasks = [];
 
+const updateLocalTasks = (tasks) => {
+    localStorage.tasks = JSON.stringify(tasks);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
 
     if (localStorage?.tasks) {
@@ -164,6 +168,23 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 task.setStatus(0);
                 document.querySelector(`#${task.getID()}`).classList.remove('complete');
+            }
+            updateLocalTasks(tasks);
+        });
+
+        let edit = document.querySelector(`#${task.getID()} .edit`);
+        edit.addEventListener('click', () => {
+            console.log('Clicked Edit');
+        });
+
+        let trash = document.querySelector(`#${task.getID()} .delete`);
+        trash.addEventListener('click', () => {
+            console.log('Clicked Delete');
+            document.querySelector(`#${task.getID()}`).remove();
+            let index = tasks.findIndex(element => element.getID() === task.getID());
+            if(index >= 0) {
+                tasks.splice(index, 1);
+                updateLocalTasks(tasks);
             }
         });
     }
