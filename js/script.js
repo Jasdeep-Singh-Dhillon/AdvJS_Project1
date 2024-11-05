@@ -199,7 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
             document.querySelector(`#${task.getID()} .desc `).textContent = task.getDesc();
             document.querySelector(`#${task.getID()} .assigned .person}`).textContent = task.getAssigned();
              updateLocalTasks(tasks);
-            console.log('Clicked Edit');
+            // console.log('Clicked Edit');
         });
 
         let trash = document.querySelector(`#${task.getID()} .delete`);
