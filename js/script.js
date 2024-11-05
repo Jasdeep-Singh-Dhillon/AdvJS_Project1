@@ -1,8 +1,14 @@
 "use strict";
 
+const getUID = () => {
+    return Date.now().toString(36) + Math.random().toString(36).substring(2);
+}
+
 class Task {
 
     constructor(title, desc, assigned, dateCreated, status) {
+        this.id = getUID();
+
         if (!title) {
             title = "No title";
         }
@@ -80,9 +86,9 @@ class Task {
             checked = "checked";
             completed = "complete";
         }
-        const taskHTML = `<div class="task ${completed}">
+        const taskHTML = `<div class="task ${completed}" id="${this.id}">
       <div class="title flex flex-align">
-        <input type="checkbox" name="progress" id="progress" ${checked}>
+        <input type="checkbox" name="progress" id="progress${this.id}" ${checked}>
         <label for="progress">${this.title}</label>
       </div>
       <div class="desc">
