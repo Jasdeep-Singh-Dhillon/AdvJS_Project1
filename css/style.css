@@ -25,12 +25,18 @@ header img {
   height: 50px;
 }
 
+main {
+    display: masonry;
+    grid-template-rows: masonry;
+}
+
 .task {
   border: 1px solid gray;
   border-radius: 1rem;
   padding: 1rem;
   box-shadow: 4px 4px 10px rgba(177, 177, 177, 0.6);
   width: fit-content;
+  height: fit-content;
   margin: 0.75rem;
 }
 

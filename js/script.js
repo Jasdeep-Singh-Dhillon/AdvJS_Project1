@@ -50,11 +50,11 @@ class Task {
     }
 
     setDesc = (desc) => {
-        this.description = desc
+        this.desc = desc
     }
 
     getDesc = () => {
-        return this.description;
+        return this.desc;
     }
 
     setAssigned = assignee => {
