@@ -6,45 +6,57 @@ const getUID = () => {
 
 class Task {
 
-    constructor(title, desc, assigned, dateCreated, status) {
-        this.id = getUID();
-
-        if (!title) {
-            title = "No title";
+    constructor(id, title, desc, assigned, dateCreated, status) {
+        if (!id) {
+            this.id = getUID;
+        } else {
+            this.id = id;
         }
+
         // Title of the task
-        this.title = title;
-
-        if (!desc) {
-            desc = "No Description";
+        if (!title) {
+            this.title = "No title";
+        } else {
+            this.title = title;
         }
+
         // Description of the task / Can be changed to array for checkbox
-        this.desc = desc;
-
-        if (!assigned) {
-            assigned = "Not Assigned";
+        if (!desc) {
+            this.desc = "No Description";
+        } else {
+            this.desc = desc;
         }
+
         // User assigned to the task
-        this.assigned = assigned;
-
-        if (!dateCreated || new Date(dateCreated) == "Invalid Date") {
-            dateCreated = new Date();
+        if (!assigned) {
+            this.assigned = "Not Assigned";
+        } else {
+            this.assigned = assigned;
         }
+
         // When the task was created 
-        this.dateCreated = new Date(dateCreated);
+        if (!dateCreated || new Date(dateCreated) == "Invalid Date") {
+            this.dateCreated = new Date();
+        } else {
+            this.dateCreated = new Date(dateCreated);
+        }
+
+        // Status (Number)
+        // 0 = Incomplete
+        // 1 = Complete
         if (!status) {
             status = 0;
-        }
-        if (isNaN(status)) {
+        } else if (isNaN(status)) {
             status = parseInt(status);
             if (isNaN(status)) {
                 status = 0;
             }
         }
-        // Status (Number)
-        // 0 = Incomplete
-        // 1 = Complete
         this.status = status;
+    }
+
+    getID = () => {
+        return this.id;
     }
 
     setTitle = (title) => {
@@ -89,13 +101,13 @@ class Task {
         const taskHTML = `<div class="task ${completed}" id="${this.id}">
       <div class="title flex flex-align">
         <input type="checkbox" name="progress" id="progress${this.id}" ${checked}>
-        <label for="progress">${this.title}</label>
+        <label for="progress${this.id}">${this.title}</label>
       </div>
       <div class="desc">
         ${this.desc}
       </div>
 
-      <div class="taskinfo flex">
+      <div class="taskinfo flex flex-wrap">
         <div class="assigned flex">
           <div class="person flex flex-center">
             ${this.assigned}
@@ -119,33 +131,53 @@ class Task {
 
 }
 
-let tasks = [];
-
-if (localStorage?.tasks) {
-    try {
-        tasks = localStorage.tasks;
-        tasks = JSON.parse(tasks);
-
-        for (let task of tasks) {
-            task = new Task(task.title, task.desc, task.assigned, task.dateCreated, task.status);
-            if(task.getTitle() === "Title 7") {
-                console.log("Here");
-                task.setDesc("Lorem ipsum dolor sit amet diam dignissim nulla tempor dolor tempor est id eum qui ut ea. Aliquyam lorem amet gubergren velit dolor zzril eu quod et clita vel sed gubergren commodo amet duis. Invidunt ut ea eirmod sed magna et gubergren. Facilisi amet dolor luptatum commodo quis wisi duo sed labore sea nostrud sadipscing. Sit ex labore nonumy.");
-            }
-            document.querySelector('main').innerHTML += task.toHTML();
-
-        }
-    }
-    catch (err) {
-        console.log("Error: ", err);
-    }
-}
-
-// for(let i = 0; i < 10; i++) {
-//     let task = new Task(`Title ${i+1}`, `Description of task ${i+1}`, `Person ${i+1}`, new Date(), Math.round(Math.random()));
-//     tasks.push(task);
-// }
-
 const addTask = () => {
     console.log("clicked");
 }
+
+let tasks = [];
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    if (localStorage?.tasks) {
+        try {
+            tasks = localStorage.tasks;
+            tasks = JSON.parse(tasks);
+
+            for (let i in tasks) {
+                tasks[i] = new Task(tasks[i].id, tasks[i].title, tasks[i].desc, tasks[i].assigned, tasks[i].dateCreated, tasks[i].status);
+
+                document.querySelector('main').innerHTML += tasks[i].toHTML();
+            }
+        }
+        catch (err) {
+            console.log("Error: ", err);
+        }
+    }
+
+    for(let task of tasks) {
+        let status = document.querySelector(`#progress${task.getID()}`);
+        status.addEventListener('change', () => {
+            if(status.checked) {
+                task.setStatus(1);
+                document.querySelector(`#${task.getID()}`).classList.add('complete');
+            } else {
+                task.setStatus(0);
+                document.querySelector(`#${task.getID()}`).classList.remove('complete');
+            }
+        });
+    }
+    
+    
+
+
+
+    // console.log(tasks[0].getID());
+});
+
+// To populate local storage with tasks
+// for(let i = 0; i < 10; i++) {
+//     let task = new Task(getUID(),`Title ${i+1}`, `Description of task ${i+1}`, `Person ${i+1}`, new Date(), Math.round(Math.random()));
+//     tasks.push(task);
+// }
+// localStorage.tasks = JSON.stringify(tasks);
