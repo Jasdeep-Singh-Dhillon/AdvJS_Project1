@@ -206,5 +206,4 @@ const generateTasks = () => {
     }
     updateLocalTasks(tasks);
 }
-
-// generateTasks();
+ generateTasks();
