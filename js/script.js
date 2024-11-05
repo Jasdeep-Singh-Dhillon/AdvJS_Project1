@@ -141,7 +141,7 @@ const addTask = () => {
     tasks.push(task);
    //code to update  tasks
     updateLocalTasks(tasks);
-    document.querySelector("main").innerHTMl += task.toHTML();
+    document.querySelector("main").innerHTML += task.toHTML();
     console.log("clicked");
 }
 
