@@ -185,6 +185,7 @@ const updateView = (tasks) => {
                 tasks.splice(index, 1);
                 updateLocalTasks(tasks);
             }
+            // updateView();
         });
 
         let status = document.querySelector(`#progress${task.getID()}`);
@@ -240,10 +241,6 @@ document.addEventListener("DOMContentLoaded", () => {
         updateView(filtered);
     });
 
-
-
-
-    // console.log(tasks[0].getID());
 });
 
 // To populate local storage with tasks
