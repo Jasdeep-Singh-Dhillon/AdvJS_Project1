@@ -55,6 +55,10 @@ header img {
   font-size: larger;
 }
 
+main {
+  justify-content: center;
+}
+
 .task {
   border: 1px solid gray;
   border-radius: 1rem;
@@ -162,4 +166,23 @@ header img {
 
 .flex-align {
   align-items: center;
+}
+
+footer {
+  border-top: 1px solid gray;
+  border-radius: 1rem;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 4rem;
+}
+
+#ref {
+  font-weight: bold;
+  text-align: center;
+}
+
+footer ul {
+  margin: auto;
 }
