@@ -149,53 +149,15 @@ const addTask = () => {
 
 const updateView = (tasks) => {
     document.querySelector("main").innerHTML = '';
-    if(tasks.length <= 0) {
+    if (tasks.length <= 0) {
         document.querySelector("main").innerHTML = "No tasks available";
+        return;
     }
     for (let task of tasks) {
         document.querySelector("main").innerHTML += task.toHTML();
     }
 
-}
-
-let tasks = [];
-
-const updateLocalTasks = (tasks) => {
-    localStorage.tasks = JSON.stringify(tasks);
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    if (localStorage?.tasks) {
-        try {
-            tasks = localStorage.tasks;
-            tasks = JSON.parse(tasks);
-
-            for (let i in tasks) {
-                tasks[i] = new Task(tasks[i].id, tasks[i].title, tasks[i].desc, tasks[i].assigned, tasks[i].dateCreated, tasks[i].status);
-            }
-            updateView(tasks);
-        }
-        catch (err) {
-            console.log("Error: ", err);
-        }
-    }
-
-    for (let task of tasks) {
-        let status = document.querySelector(`#progress${task.getID()}`);
-        status.addEventListener('change', () => {
-            if (status.checked) {
-                task.setStatus(1);
-                document.querySelector(`#${task.getID()} .title`).classList.add('complete');
-                document.querySelector(`#${task.getID()} .desc`).classList.add('complete');
-            } else {
-                task.setStatus(0);
-                document.querySelector(`#${task.getID()} .title`).classList.remove('complete');
-                document.querySelector(`#${task.getID()} .desc`).classList.remove('complete');
-            }
-            updateLocalTasks(tasks);
-        });
-
+    for(let task of tasks) {
         let edit = document.querySelector(`#${task.getID()} .edit`);
         edit.addEventListener('click', () => {
             console.log('Clicked Edit');
@@ -224,6 +186,44 @@ document.addEventListener("DOMContentLoaded", () => {
                 updateLocalTasks(tasks);
             }
         });
+
+        let status = document.querySelector(`#progress${task.getID()}`);
+        status.addEventListener('change', () => {
+            if (status.checked) {
+                task.setStatus(1);
+                document.querySelector(`#${task.getID()} .title`).classList.add('complete');
+                document.querySelector(`#${task.getID()} .desc`).classList.add('complete');
+            } else {
+                task.setStatus(0);
+                document.querySelector(`#${task.getID()} .title`).classList.remove('complete');
+                document.querySelector(`#${task.getID()} .desc`).classList.remove('complete');
+            }
+            updateLocalTasks(tasks);
+        });
+    }
+}
+
+let tasks = [];
+
+const updateLocalTasks = (tasks) => {
+    localStorage.tasks = JSON.stringify(tasks);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    if (localStorage?.tasks) {
+        try {
+            tasks = localStorage.tasks;
+            tasks = JSON.parse(tasks);
+
+            for (let i in tasks) {
+                tasks[i] = new Task(tasks[i].id, tasks[i].title, tasks[i].desc, tasks[i].assigned, tasks[i].dateCreated, tasks[i].status);
+            }
+            updateView(tasks);
+        }
+        catch (err) {
+            console.log("Error: ", err);
+        }
     }
 
     document.querySelector("#search").addEventListener('change', () => {
