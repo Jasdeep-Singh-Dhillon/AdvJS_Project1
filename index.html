@@ -12,17 +12,26 @@
 <body>
   <header class="flex">
     <div class="flex flex-align">
-        <img src="imgs/list.png" alt="List Icon">
-        <h1>Do.It</h1>
+      <img src="imgs/list.png" alt="List Icon">
+      <h1>Do.It</h1>
     </div>
-    <button onclick="addTask()" id="add-task" class="flex flex-align">
+    <div class="flex flex-align">
+      <div id="searchBox">
+        <label for="search" hidden>
+          Search
+        </label>
+        <input type="text" id="search" name="search" placeholder="Search">
+      </div>
+      <button onclick="addTask()" id="add-task" class="flex flex-align">
         Add Task
-    </button>
+      </button>
+
+    </div>
   </header>
 
   <main class="flex flex-wrap">
 
-    
+
   </main>
 
   <footer>

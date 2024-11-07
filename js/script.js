@@ -142,7 +142,20 @@ const addTask = () => {
     //code to update  tasks
     updateLocalTasks(tasks);
     document.querySelector("main").innerHTML += task.toHTML();
-    console.log("clicked");
+
+    document.querySelector('#search').value = "";
+    updateView(tasks);
+}
+
+const updateView = (tasks) => {
+    document.querySelector("main").innerHTML = '';
+    if(tasks.length <= 0) {
+        document.querySelector("main").innerHTML = "No tasks available";
+    }
+    for (let task of tasks) {
+        document.querySelector("main").innerHTML += task.toHTML();
+    }
+
 }
 
 let tasks = [];
@@ -160,9 +173,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             for (let i in tasks) {
                 tasks[i] = new Task(tasks[i].id, tasks[i].title, tasks[i].desc, tasks[i].assigned, tasks[i].dateCreated, tasks[i].status);
-
-                document.querySelector('main').innerHTML += tasks[i].toHTML();
             }
+            updateView(tasks);
         }
         catch (err) {
             console.log("Error: ", err);
@@ -214,6 +226,19 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    document.querySelector("#search").addEventListener('change', () => {
+        let value = document.querySelector("#search").value.trim();
+
+        document.querySelector('main').innerHTML = '';
+
+        let filtered = tasks.filter((task) => {
+            if (JSON.stringify(task).includes(value)) {
+                return task;
+            }
+        });
+
+        updateView(filtered);
+    });
 
 
 
@@ -229,4 +254,4 @@ const generateTasks = () => {
     }
     updateLocalTasks(tasks);
 }
-//generateTasks();
+// generateTasks();

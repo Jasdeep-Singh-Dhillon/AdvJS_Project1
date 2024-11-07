@@ -26,6 +26,16 @@ header img {
   height: 50px;
 }
 
+#searchBox {
+  margin-right: .5rem;
+}
+
+#search {
+  border: 1px solid gray;
+  border-radius: 1rem;
+  padding: .5rem;
+}
+
 #add-task {
   border: none;
   background-color: rgb(208, 247, 193);
