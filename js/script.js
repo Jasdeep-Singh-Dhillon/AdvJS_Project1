@@ -135,7 +135,9 @@ const addTask = () => {
     const title = prompt("Enter Task Title:");
     if (!title) return;
     const desc = prompt("Enter Task Description:");
+    if (!desc) return;
     const assigned = prompt("Enter Task Assignee:");
+    if (!assigned) return;
     const task = new Task(getUID(), title, desc, assigned, new Date(), 0);
     //code to push tasks 
     tasks.push(task);
@@ -150,7 +152,7 @@ const addTask = () => {
 const updateView = (tasks) => {
     document.querySelector("main").innerHTML = '';
     if (tasks.length <= 0) {
-        document.querySelector("main").innerHTML = "No tasks available";
+        document.querySelector("main").innerHTML = `<div id="no-task">No tasks available</div>`;
         return;
     }
     for (let task of tasks) {
@@ -163,12 +165,15 @@ const updateView = (tasks) => {
             console.log('Clicked Edit');
             const newTitle = prompt("Edit Task title", task.getTitle());
             if (newTitle) task.setTitle(newTitle);
-
+            else return;
+            
             const newDesc = prompt("Edit Task Description", task.getDesc());
             if (newDesc) task.setDesc(newDesc);
-
+            else return;
+            
             const newAssigned = prompt("Edit Task Assignee", task.getAssigned());
             if (newAssigned) task.setAssigned(newAssigned);
+            else return;
 
             document.querySelector(`#${task.getID()} .title label`).textContent = task.getTitle();
             document.querySelector(`#${task.getID()} .desc `).textContent = task.getDesc();

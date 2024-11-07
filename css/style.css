@@ -49,6 +49,12 @@ header img {
   margin-right: 0.5rem;
 }
 
+#no-task {
+  margin: 2rem auto;
+  text-align: center;
+  font-size: larger;
+}
+
 .task {
   border: 1px solid gray;
   border-radius: 1rem;
