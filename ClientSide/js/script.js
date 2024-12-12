@@ -210,7 +210,7 @@ const updateView = (tasks) => {
                 assigned: newAssigned,
                 date: task.dateCreated
             });
-            let response = await fetch(URL + `edit/${task.getID()}`, {
+            await fetch(URL + `edit/${task.getID()}`, {
                 method: 'PUT',
                 body,
                 headers: {
