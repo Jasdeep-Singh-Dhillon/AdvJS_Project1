@@ -1,4 +1,4 @@
-# AdvJS_Project1
-Group Project 1 for Advanced JavaScript
+# AdvJS_Project 2
+Group Project 2 for Advanced JavaScript
 
-TODO: Edit, Add and Filter
+Made by Jasdeep, Harjeet, Neel
