@@ -136,6 +136,8 @@ class Task {
 
 }
 
+let tasks = [];
+
 const addTask = async () => {
     const title = prompt("Enter Task Title:");
     if (!title) return;
@@ -159,13 +161,19 @@ const addTask = async () => {
             'Content-Type': 'application/json; charset=UTF-8'
         }
     });
+    tasks.push(task);
     //code to update  tasks
     document.querySelector("main").innerHTML += task.toHTML();
     document.querySelector('#search').value = "";
+    updateView(tasks);
 }
 
 const updateView = (tasks) => {
     document.querySelector("main").innerHTML = '';
+
+    if(!tasks) {
+        return;
+    }
 
     if (tasks.length <= 0) {
         document.querySelector("main").innerHTML = `<div id="no-task">No tasks available</div>`;
@@ -249,8 +257,6 @@ const updateView = (tasks) => {
         });
     }
 }
-
-let tasks = [];
 
 document.addEventListener("DOMContentLoaded", async () => {
 
