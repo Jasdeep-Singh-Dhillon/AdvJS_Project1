@@ -50,7 +50,7 @@ app.post('/add', (req, res) => {
 
     TASKS.push(task);
     updateTasks();
-    res.send('Success');
+    res.send({message: 'SUCCESS'});
 });
 
 app.put('/edit/:id', (req, res) => {
@@ -61,7 +61,7 @@ app.put('/edit/:id', (req, res) => {
         }
     });
     updateTasks();
-    res.send('Success');
+    res.send({message: 'SUCCESS'});
 });
 
 app.put('/status/:id', (req, res) => {
@@ -72,7 +72,7 @@ app.put('/status/:id', (req, res) => {
         }
     });
     updateTasks();
-    res.send('Success');
+    res.send({message: 'SUCCESS'});
 });
 
 app.delete('/delete/:id', (req, res) => {

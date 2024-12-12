@@ -92,6 +92,10 @@ class Task {
         return this.status;
     }
 
+    toString = () => {
+        return this.title + this.desc + this.assigned;
+    }
+
     toHTML = () => {
         let checked = "";
         let completed = "";
@@ -148,14 +152,13 @@ const addTask = async () => {
         assigned,
         date: new Date()
     });
-    let response = await fetch(URL + 'add', {
+    await fetch(URL + 'add', {
         method: 'POST',
         body,
         headers: {
             'Content-Type': 'application/json; charset=UTF-8'
         }
     });
-    console.log(await response.json());
     //code to update  tasks
     document.querySelector("main").innerHTML += task.toHTML();
     document.querySelector('#search').value = "";
@@ -163,6 +166,7 @@ const addTask = async () => {
 
 const updateView = (tasks) => {
     document.querySelector("main").innerHTML = '';
+
     if (tasks.length <= 0) {
         document.querySelector("main").innerHTML = `<div id="no-task">No tasks available</div>`;
         return;
@@ -265,21 +269,18 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
-    document.querySelector("#search").addEventListener('change', () => {
+    document.querySelector("#search").addEventListener('input', () => {
         let value = document.querySelector("#search").value.trim().toLowerCase();
+        document.querySelectorAll('.task').forEach(task => { task.classList.remove('hide'); });
 
-        if (value === "") {
-            document.querySelectorAll('.task').forEach((task) => { task.classList.remove('hide'); });
-        }
 
-        const pageTasks = document.querySelectorAll('.task');
-        pageTasks.forEach((task) => {
-            let text = task.textContent.toLowerCase();
-            if (!text.includes(value)) {
-                task.classList.add('hide');
-            } else {
-                task.classList.remove('hide');
-            }
+        let filtered = tasks.filter((task) =>
+            !task.toString().toLowerCase().includes(value)
+        );
+
+
+        filtered.forEach(task => {
+            document.querySelector(`#${task.getID()}`).classList.add('hide');
         });
     });
 
