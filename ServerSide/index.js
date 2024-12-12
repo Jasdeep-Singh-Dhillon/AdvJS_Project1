@@ -39,7 +39,6 @@ app.post('/add', (req, res) => {
     const assignee = req.body.assigned;
     const dateCreated = req.body.date;
 
-    console.log(id, title, description, assignee, dateCreated);
     const task = {
         "id": id,
         "title": title,
@@ -51,19 +50,29 @@ app.post('/add', (req, res) => {
 
     TASKS.push(task);
     updateTasks();
-    res.send({ id, title, description, assignee, dateCreated });
+    res.send('Success');
 });
 
 app.put('/edit/:id', (req, res) => {
     const id = req.params.id;
-    console.log(req.body);
     TASKS.forEach((task, index) => {
         if(task.id === id) {
             TASKS[index] = req.body;
         }
     });
     updateTasks();
-    res.send(req.body);
+    res.send('Success');
+});
+
+app.put('/status/:id', (req, res) => {
+    const id = req.params.id;
+    TASKS.forEach((task, index) => {
+        if(task.id === id) {
+            TASKS[index] = req.body;
+        }
+    });
+    updateTasks();
+    res.send('Success');
 });
 
 app.delete('/delete/:id', (req, res) => {

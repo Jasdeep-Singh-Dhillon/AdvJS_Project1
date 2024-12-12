@@ -210,16 +210,29 @@ const updateView = (tasks) => {
 
         let trash = document.querySelector(`#${task.getID()} .delete`);
         trash.addEventListener('click', async () => {
-            console.log('Clicked Delete');
             document.querySelector(`#${task.getID()}`).remove();
-            let response = await fetch(URL + `delete/${task.getID()}`, {
+            await fetch(URL + `delete/${task.getID()}`, {
                 method: 'DELETE'
             });
 
         });
 
         let status = document.querySelector(`#progress${task.getID()}`);
-        status.addEventListener('change', () => {
+        status.addEventListener('change', async () => {
+            await fetch(URL + `status/${task.getID()}`, {
+                method: 'PUT',
+                body: JSON.stringify({
+                    id: task.getID(),
+                    title: task.getTitle(),
+                    desc: task.getDesc(),
+                    assigned: task.getAssigned(),
+                    date: task.dateCreated,
+                    status: status.checked
+                }),
+                headers: {
+                    'Content-Type': 'application/json; charset=UTF-8'
+                }
+            });
             if (status.checked) {
                 task.setStatus(1);
                 document.querySelector(`#${task.getID()} .title`).classList.add('complete');
@@ -229,7 +242,6 @@ const updateView = (tasks) => {
                 document.querySelector(`#${task.getID()} .title`).classList.remove('complete');
                 document.querySelector(`#${task.getID()} .desc`).classList.remove('complete');
             }
-            updateLocalTasks(tasks);
         });
     }
 }
@@ -242,7 +254,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         try {
             const response = await fetch(URL);
             tasks = await response.json();
-            console.log(tasks);
 
             for (let i in tasks) {
                 tasks[i] = new Task(tasks[i].id, tasks[i].title, tasks[i].desc, tasks[i].assigned, tasks[i].dateCreated, tasks[i].status);
@@ -255,7 +266,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     document.querySelector("#search").addEventListener('change', () => {
-        let value = document.querySelector("#search").value.trim();
+        let value = document.querySelector("#search").value.trim().toLowerCase();
 
         if (value === "") {
             document.querySelectorAll('.task').forEach((task) => { task.classList.remove('hide'); });
@@ -265,7 +276,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         pageTasks.forEach((task) => {
             let text = task.textContent.toLowerCase();
             if (!text.includes(value)) {
-                task.classList.toggle('hide');
+                task.classList.add('hide');
+            } else {
+                task.classList.remove('hide');
             }
         });
     });
