@@ -18,3 +18,5 @@ https://stackoverflow.com/questions/3231459/how-can-i-create-unique-ids-with-jav
 https://www.geeksforgeeks.org/remove-array-element-based-on-object-property-in-javascript/
 
 <a href="https://www.flaticon.com/free-icons/discover" title="discover icons">Discover icons created by Smashicons - Flaticon</a>
+
+<a href="https://stackoverflow.com/questions/10636611/how-does-the-access-control-allow-origin-header-work">Fix CORS Error</a>
